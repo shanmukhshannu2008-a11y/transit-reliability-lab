@@ -1,0 +1,11 @@
+# Collected data stays on this computer
+data/raw/
+
+# Python-generated files and local environments
+__pycache__/
+*.pyc
+.venv/
+
+# Local secrets and macOS files
+.env
+.DS_Store
