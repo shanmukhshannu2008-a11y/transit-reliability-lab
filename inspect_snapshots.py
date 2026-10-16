@@ -1,7 +1,8 @@
 import json
 from pathlib import Path
+from transit_fields import parse_lateness
 
-target_train = "9517"
+target_train = "5300"
 
 data_folder = Path(__file__).resolve().parent / "data" / "raw"
 snapshot_files = sorted(data_folder.glob("trainview_*.json"))
@@ -17,13 +18,15 @@ for snapshot_file in snapshot_files:
     for train in snapshot["trains"]:
         if str(train.get("trainno")) == target_train:
             found = True
+            lateness = parse_lateness(train.get("late"))
+
             print(
                 f"{snapshot['collected_at']} | "
                 f"Current: {train.get('currentstop')} | "
-                f"Next: {train.get('nextstop')} | "
-                f"Reported late: {train.get('late')}"
+                f"Raw late: {train.get('late')} | "
+                f"Parsed delay: {lateness['reported_delay']} | "
+                f"Status: {lateness['status']}"
             )
 
     if not found:
         print(f"{snapshot['collected_at']} | Not present in snapshot")
-        

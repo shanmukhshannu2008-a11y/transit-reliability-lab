@@ -23,7 +23,7 @@ Snapshots are saved in data/raw/, which is excluded from Git.
 
 - Collection is manual: each run requests one snapshot.
 - Collection time is not the train observation time.
-- The meaning of `late: 999` has not been verified.
+- Historical SEPTA developer guidance identifies 999 as cancelled or suspended. The parser treats it as a status rather than a numeric delay; current operational meaning has not been independently confirmed.
 - These records do not establish actual station arrival times.
 - No machine-learning model has been trained yet.
 
