@@ -21,7 +21,7 @@ Snapshots are saved in data/raw/, which is excluded from Git.
 
 ## Current limitations
 
-- Collection is manual: each run requests one snapshot.
+- Collection sessions must be started manually and run only while the computer is awake.
 - Collection time is not the train observation time.
 - Historical SEPTA developer guidance identifies 999 as cancelled or suspended. The parser treats it as a status rather than a numeric delay; current operational meaning has not been independently confirmed.
 - These records do not establish actual station arrival times.
@@ -38,3 +38,37 @@ SEPTA TrainView:
 https://www3.septa.org/api/TrainView/index.php
 
 This is an independent student project, not affiliated with SEPTA.
+
+## Collect and inspect
+
+```bash
+python3 collect_session.py --count 3 --interval 60
+python3 inspect_snapshots.py 9517
+```
+
+The session waits at least 60 seconds after each attempt. Use Control+C to stop.
+Inspection reads saved snapshots; a train number can recur on different dates.
+
+## Export observations
+
+```bash
+python3 export_observations.py
+python3 -m unittest discover -s tests -v
+```
+
+The exporter reads local snapshots only and writes
+`data/processed/observations.csv`. Each row is one matching train record in
+one snapshot. It retains repeated observations and source filenames plus
+zero-based record indices. Collection timestamps are not arrival times.
+`raw_late_json` retains the original value and its JSON type. Blank parsed
+delay means no numeric value, not zero. Status interpretation inherits the
+current parser; it is not a complete verified code specification.
+
+Malformed snapshots stop the export without replacing a previous output.
+Raw and processed datasets are excluded from Git. Tests use temporary synthetic
+fixtures and make no network calls.
+
+## Project notes
+
+- [Progress journal](docs/PROJECT_JOURNAL.md)
+- [Verified progress brief](docs/VERIFIED_PROGRESS_BRIEF.md)
