@@ -72,3 +72,18 @@ fixtures and make no network calls.
 
 - [Progress journal](docs/PROJECT_JOURNAL.md)
 - [Verified progress brief](docs/VERIFIED_PROGRESS_BRIEF.md)
+
+
+## Audit collection coverage
+
+```bash
+python3 audit_coverage.py
+python3 audit_coverage.py --gap-seconds 180
+```
+
+Reads original snapshots so files with no matching trains still count. Saves
+`data/processed/coverage.json` and prints daily counts, statuses, first/last
+collection times and gaps. Dates use America/New_York collection dates, not
+verified transit service dates. Distinct train numbers are not journey counts.
+The configurable gap threshold is a diagnostic choice, not an API guarantee.
+An elapsed first-to-last span includes gaps and is not continuous coverage.

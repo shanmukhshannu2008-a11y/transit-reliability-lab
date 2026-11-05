@@ -1,6 +1,6 @@
 # Transit Reliability Lab — Progress Journal
 
-Last updated: November 4, 2026 (America/New_York).
+Last updated: November 5, 2026 (America/New_York).
 Owner: Shanmukh Aravapalli. GitHub: shanmukhshannu2008-a11y.
 Repository: https://github.com/shanmukhshannu2008-a11y/transit-reliability-lab
 
@@ -144,3 +144,32 @@ Changes are local and uncommitted at this entry. No push was performed.
 Next: walk through one exported row together, audit time coverage and gaps,
 and resolve available ground truth before choosing a prediction target.
 The wider collector refactor and status-code verification remain outstanding.
+
+
+## November 5 — Collection coverage audit
+
+Implemented audit_coverage.py using raw snapshots and existing export validation.
+Added five tests; all 12 exporter/audit tests passed. Tests cover local calendar
+dates, long gaps, empty/nonmatching snapshots, repeated train identifiers,
+threshold boundaries, duplicate timestamps, and missing input.
+
+Actual local findings:
+- October 14: 5 snapshots, 15 matching observations, 3 distinct train numbers;
+  11:56:11–12:05:09 Eastern; elapsed span 8.97 minutes; largest gap 285.17 seconds.
+  10 numeric statuses, 5 historical cancelled/suspended interpretations.
+- November 2: 4 snapshots, 9 matching observations, 3 distinct train numbers;
+  10:15:52–10:24:02 Eastern; elapsed span 8.18 minutes; largest gap 370.03 seconds.
+  9 numeric statuses.
+- Three consecutive-snapshot gaps exceed the project-selected 180-second
+  threshold, including the gap between dates. This is not an API freshness test.
+
+Conclusion: 24 observations across two short windows are sufficient for tool
+verification, not credible training/evaluation. Elapsed spans include gaps;
+we did not measure continuous monitoring, actual arrivals, or prediction accuracy.
+Next priority: investigate outcome-label sources and define a feasibility
+experiment before committing to a long collection campaign. A longer supervised
+collection session can test pipeline stability, but does not solve label validity.
+
+Learning focus: observation count versus unique train identifiers; local date
+versus service date; elapsed range versus sampled coverage; reproducible audits.
+This audit and its documentation are saved locally, not committed or pushed.
