@@ -1,6 +1,6 @@
 # Transit Reliability Lab — Progress Journal
 
-Last updated: November 5, 2026 (America/New_York).
+Last updated: November 8, 2026 (America/New_York).
 Owner: Shanmukh Aravapalli. GitHub: shanmukhshannu2008-a11y.
 Repository: https://github.com/shanmukhshannu2008-a11y/transit-reliability-lab
 
@@ -173,3 +173,76 @@ collection session can test pipeline stability, but does not solve label validit
 Learning focus: observation count versus unique train identifiers; local date
 versus service date; elapsed range versus sampled coverage; reproducible audits.
 This audit and its documentation are saved locally, not committed or pushed.
+
+
+## November 5 — Historical source inspection
+
+Inspected upstream scraper, export, and reporting code; saved a first-100-row
+convenience sample plus checksums locally. Evidence supports minutes as the
+working unit despite conflicting dataset-card wording. Confirmed that unchanged
+values are omitted, making missing polls versus unchanged reports ambiguous.
+Archive lacks route/station fields; date-compatible route linkage remains open.
+Decision: exploratory only, not approved as general fixed-horizon ground truth.
+See HISTORICAL_DATA_REVIEW.md for evidence, caveats, and next experiment.
+No bulk download, model training, commit, push, or external message performed.
+
+
+## November 8 — Bounded historical feasibility pilot
+
+Added optional DuckDB environment, pinned dependency, historical audit, and four
+fixture tests. Downloaded and checksum-verified one 8.25 MB 2025 partition;
+kept all downloaded data ignored. Audited one daytime week (69,906 records).
+51,887 / 69,611 numeric anchors have a numeric observed update under the 8–12
+minute rule (74.54%). This is eligibility, not prediction accuracy. Scope is
+regional rail; date-compatible Paoli/Thorndale mapping remains unresolved.
+
+All 16 tests passed in .venv. Actual archive execution exposed and resolved a
+SQL date/time type mismatch not covered by the matching-function fixtures.
+Source evidence and limitations are in HISTORICAL_DATA_REVIEW.md. No model
+trained, no performance improvement claimed, and no changes committed/pushed.
+Learning: labels, conditional sampling, temporal matching, and the difference
+between unit-level checks and running an entire analysis on actual input.
+
+
+## November 8 — First development baseline
+
+Implemented baseline_delay.py: predict unchanged reported delay at the first
+stored update 8–12 minutes later. Audited December 1–5 values (57,177 rows,
+numeric range 0–119, 294 code-999 rows). Conservatively excluded 998 and rejected
+pairs crossing intervening special statuses. Verified archive checksum.
+
+December 1–4: 34,254 eligible pairs, MAE 2.658 minutes.
+December 5 validation: 8,238 eligible pairs, MAE 2.482 minutes, 73.88% eligibility.
+December 6–7 was not scored; the earlier feasibility audit included aggregate
+eligibility for those dates. No model has been trained and no improvement claimed.
+This measures conditional future reported delay, not actual arrival accuracy.
+
+Learning: persistence is the reference a learned model must beat; MAE measures
+average error size; chronological splits prevent mixing later observations into
+training. Overlapping pairs and missing unchanged updates limit interpretation.
+All 21 tests passed, including five new baseline checks. The full baseline also
+ran successfully on the reviewed archive. Rules and results recorded in
+EXPERIMENT_PLAN.md. Changes remain local; no push.
+
+
+## November 8 — First supervised model and ablation
+
+Built train_delay_model.py, a median-change regressor with current-delay bins
+and previous-report trend. Training only uses December 1–4. Compared persistence,
+delay-only learning, and delay-plus-history on identical December 5 examples.
+Validation MAEs: 2.4820, 2.4416, and 2.4408 minutes respectively. Approximately
+1.7% reduction versus persistence; negligible added benefit from history.
+These conditional scores do not establish actual arrival accuracy or significance.
+Reserved December 6–7 remains unscored. No tuning search performed.
+
+All 26 tests passed, including five new checks for past-only features, status/gap
+handling, train/date isolation, median/fallback behavior, and end-to-end exclusion
+of test dates and validation labels from fitting. Ran the complete model on the
+checksum-verified archive. Saved reproducible aggregate results and learned
+parameters in docs/MODEL_DEVELOPMENT_RESULTS.json.
+
+Learning: features describe what is known at prediction time; labels describe
+what happens later. An ablation removes one feature to check its contribution.
+Here the history ablation shows that more features need not help. Next: inspect
+mistakes and broaden date coverage before stronger modeling or final testing.
+Prepared this work for the user's requested Git commit; raw data remains ignored.

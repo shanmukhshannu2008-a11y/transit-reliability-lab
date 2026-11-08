@@ -13,7 +13,7 @@ starting with SEPTA's Paoli/Thorndale line, which I ride.
 
 ## Run
 
-Requires Python 3.10 or newer. No third-party packages are required.
+Requires Python 3.10 or newer. Live collection uses the standard library; historical analysis requires the optional dependency below.
 
 python3 collect_snapshot.py
 
@@ -21,11 +21,11 @@ Snapshots are saved in data/raw/, which is excluded from Git.
 
 ## Current limitations
 
-- Collection sessions must be started manually and run only while the computer is awake.
+- Collection sessions run locally and require the computer to remain awake.
 - Collection time is not the train observation time.
 - Historical SEPTA developer guidance identifies 999 as cancelled or suspended. The parser treats it as a status rather than a numeric delay; current operational meaning has not been independently confirmed.
 - These records do not establish actual station arrival times.
-- No machine-learning model has been trained yet.
+- A small median-change regression model has been fitted; broader validation remains outstanding.
 
 ## Next steps
 
@@ -39,51 +39,74 @@ https://www3.septa.org/api/TrainView/index.php
 
 This is an independent student project, not affiliated with SEPTA.
 
-## Collect and inspect
+## Inspect saved snapshots
 
-```bash
-python3 collect_session.py --count 3 --interval 60
-python3 inspect_snapshots.py 9517
-```
+Pass a train number to examine its records across locally saved snapshots:
 
-The session waits at least 60 seconds after each attempt. Use Control+C to stop.
-Inspection reads saved snapshots; a train number can recur on different dates.
+    python3 inspect_snapshots.py 9517
+    python3 inspect_snapshots.py 5300
 
-## Export observations
+Show usage instructions:
 
-```bash
-python3 export_observations.py
-python3 -m unittest discover -s tests -v
-```
+    python3 inspect_snapshots.py --help
 
-The exporter reads local snapshots only and writes
-`data/processed/observations.csv`. Each row is one matching train record in
-one snapshot. It retains repeated observations and source filenames plus
-zero-based record indices. Collection timestamps are not arrival times.
-`raw_late_json` retains the original value and its JSON type. Blank parsed
-delay means no numeric value, not zero. Status interpretation inherits the
-current parser; it is not a complete verified code specification.
+This reads saved files without contacting SEPTA. Records from different
+dates are separate observations; a train number alone does not identify
+one unique journey across dates.
 
-Malformed snapshots stop the export without replacing a previous output.
-Raw and processed datasets are excluded from Git. Tests use temporary synthetic
-fixtures and make no network calls.
+## Collect a session
 
-## Project notes
+Collect three snapshots, waiting 60 seconds after each completed
+attempt before starting the next:
 
-- [Progress journal](docs/PROJECT_JOURNAL.md)
-- [Verified progress brief](docs/VERIFIED_PROGRESS_BRIEF.md)
+    python3 collect_session.py --count 3 --interval 60
+
+The count must be at least 1 and the interval at least 60 seconds.
+Keep the computer awake and the terminal open during collection.
+Press Control+C to stop early.
+
+Failed or timed-out attempts are counted, and the session continues
+to the next attempt. Each collector run has a 45-second timeout.
+Raw snapshots remain excluded from Git.
+
+## Historical observed-delay experiment
+
+The historical pilot covers regional rail, not a verified Paoli/Thorndale subset.
+It forecasts a later **reported delay**, not an actual station arrival.
+The archive omits unchanged updates, so the evaluated sample is conditional on
+having a stored update 8–12 minutes later. See docs/HISTORICAL_DATA_REVIEW.md
+for attribution, download provenance, and source limitations.
+
+Install optional analysis dependencies in a virtual environment:
+
+    python3 -m venv .venv
+    .venv/bin/python -m pip install -r requirements-analysis.txt
+
+With the reviewed 2025 archive at data/raw/historical-review/2025.parquet:
+
+    .venv/bin/python audit_historical.py
+    .venv/bin/python baseline_delay.py
+    .venv/bin/python -m unittest discover -s tests -v
+
+The persistence baseline predicts that reported delay stays unchanged.
+Development results: December 1–4 MAE 2.658 minutes (34,254 pairs);
+December 5 validation MAE 2.482 minutes (8,238 pairs).
+These are conditional observed-update scores, not arrival accuracy.
+December 6–7 has not been scored. A first median-change regression model is now available (see below).
+Full rules and caveats: docs/EXPERIMENT_PLAN.md.
+Generated reports and downloaded data stay excluded from Git.
 
 
-## Audit collection coverage
+## First learned model
 
-```bash
-python3 audit_coverage.py
-python3 audit_coverage.py --gap-seconds 180
-```
+    .venv/bin/python train_delay_model.py
 
-Reads original snapshots so files with no matching trains still count. Saves
-`data/processed/coverage.json` and prints daily counts, statuses, first/last
-collection times and gaps. Dates use America/New_York collection dates, not
-verified transit service dates. Distinct train numbers are not journey counts.
-The configurable gap threshold is a diagnostic choice, not an API guarantee.
-An elapsed first-to-last span includes gaps and is not continuous coverage.
+Learns median future delay changes from December 1–4, grouped by current delay
+and the direction of the previous valid report. Sparse groups fall back to
+coarser training groups. December 5 validation uses the same 8,238 examples for
+all methods: persistence MAE 2.4820, delay-only model 2.4416, history model 2.4408
+minutes. The history model reduces error by about 1.7% versus persistence;
+history itself adds almost no improvement over delay alone. This is exploratory
+conditional reported-delay performance, not actual arrival accuracy.
+December 6–7 remains unscored. No hyperparameter search was performed.
+See docs/EXPERIMENT_PLAN.md for feature rules and limitations.
