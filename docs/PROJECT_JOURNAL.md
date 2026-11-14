@@ -246,3 +246,23 @@ what happens later. An ablation removes one feature to check its contribution.
 Here the history ablation shows that more features need not help. Next: inspect
 mistakes and broaden date coverage before stronger modeling or final testing.
 Prepared this work for the user's requested Git commit; raw data remains ignored.
+
+## November 14 — Validation error analysis
+
+Inspected the largest errors and source reports for trains 5229 and 5322.
+Both showed abrupt reported-delay drops toward zero; 5229 subsequently
+reported 999. Their operational causes remain unverified. Kept all
+eligible examples in evaluation.
+
+The worst 100 of 8,238 validation examples contributed 9.3% of total
+absolute error. Compared with persistence, the model improved MAE for
+falling-delay and missing-history groups, but slightly worsened MAE
+for rising delays, the largest group. Only 34 examples had unchanged
+previous delay, limiting interpretation.
+
+Learned that aggregate improvements can hide subgroup weaknesses.
+These are exploratory findings from one validation day, not evidence
+of actual arrival accuracy. Reserved test dates remain unscored.
+
+Next: check stability across more chronological development dates
+before changing the model based on these findings.

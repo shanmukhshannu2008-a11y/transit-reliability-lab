@@ -116,6 +116,40 @@ def run(path):
               'delay_and_history': MedianChangeModel(True).fit(train)}
     predictors = {'persistence': lambda r: r['initial'],
                   **{name: model.predict for name,model in models.items()}}
+
+    errors = []
+
+    for row in validation:
+        prediction = models["delay_and_history"].predict(row)
+        actual = row["outcome"]
+
+        errors.append({
+            "train": row["train"],
+            "time": row["stamp"],
+            "current": row["initial"],
+            "trend": row["trend"],
+            "prediction": prediction,
+            "actual": actual,
+            "absolute_error": abs(prediction - actual),
+        })
+
+    errors.sort(key=lambda row: row["absolute_error"], reverse=True)
+
+    print("\n10 largest validation errors:")
+    for error in errors[:10]:
+        print(error)
+        total_error = sum(row["absolute_error"] for row in errors)
+
+    print("\nConcentration of validation error:")
+    for count in (10, 50, 100):
+        largest_error = sum(
+            row["absolute_error"] for row in errors[:count]
+        )
+        share = largest_error / total_error if total_error else 0
+        print(
+            f"Top {count} examples account for "
+            f"{share:.1%} of total absolute error"
+        )
     report = {'archive_sha256': EXPECTED_SHA, 'feature_policy': FEATURE_POLICY,
               'training_dates': '2025-12-01 through 2025-12-04',
               'validation_date': '2025-12-05',
@@ -130,6 +164,27 @@ def run(path):
             'daily': {str(day): {key: evaluate([r for r in subset if r['day']==day], predict)
                                 for key,predict in predictors.items()}
                       for day in sorted({r['day'] for r in subset})}}
+
+
+    for trend in ("falling", "unchanged", "rising", "missing"):
+        group = [row for row in validation if row["trend"] == trend]
+
+        if not group:
+            continue
+
+        baseline = evaluate(group, predictors["persistence"])
+        learned = evaluate(group, predictors["delay_and_history"])
+
+        baseline_mae = baseline["mae_minutes"]
+        model_mae = learned["mae_minutes"]
+        improvement = baseline_mae - model_mae
+
+        print(
+            f"{trend}: n={len(group)} | "
+            f"baseline={baseline_mae:.3f} | "
+            f"model={model_mae:.3f} | "
+            f"improvement={improvement:+.3f} minutes"
+        )
     return report
 
 
