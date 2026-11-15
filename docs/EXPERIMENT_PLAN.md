@@ -96,3 +96,27 @@ metrics are saved in data/processed/model_development.json (ignored). A compact
 aggregate report is versioned in docs/MODEL_DEVELOPMENT_RESULTS.json.
 Next: inspect errors and learned groups, then broaden chronological development
 coverage with a documented plan before evaluating the reserved test dates.
+
+
+## November 14 — Expanding-window development evaluation
+
+Added walk_forward.py. Fixed protocol: training starts November 17, 2025;
+validate each day November 24–December 5 using only preceding days. Fit fresh
+models for each day; keep model rules unchanged. December 6–7 is never loaded
+or scored. December 5 was previously inspected, so this is development analysis,
+not independent final testing. All methods use identical eligible rows per day.
+Coverage and trend-specific scores are saved alongside model parameters.
+
+Across 12 days, pooled MAE: persistence 3.0084, delay-only 2.7987,
+delay-plus-history 2.6952 minutes. History model beats persistence on 8/12 days.
+Much of the improvement comes from November 24 (5.549 vs 3.734 minutes).
+December 5 now worsens (2.482 vs 2.541) with the longer training window:
+more training data does not guarantee improvement when patterns vary over time.
+No significance, actual-arrival-accuracy, or Paoli-only claim. Overlapping pairs,
+shared training windows, and outcome availability bias remain limitations.
+
+All 29 tests pass, including new expanding-window, future-label isolation,
+reserved-date boundary, and missing-fold checks. Also moved total-error summation
+outside the printing loop. Reproducible report: docs/WALK_FORWARD_RESULTS.json.
+Changes saved locally, not committed or pushed. Next: investigate November 24
+and compare daily patterns before changing model settings.

@@ -110,3 +110,16 @@ history itself adds almost no improvement over delay alone. This is exploratory
 conditional reported-delay performance, not actual arrival accuracy.
 December 6–7 remains unscored. No hyperparameter search was performed.
 See docs/EXPERIMENT_PLAN.md for feature rules and limitations.
+
+
+## Walk-forward development evaluation
+
+    .venv/bin/python walk_forward.py
+
+Train from November 17, 2025 through the day preceding each validation date,
+November 24–December 5. Models are fitted afresh with fixed settings. Pooled
+MAE: persistence 3.0084 minutes, delay-only 2.7987, delay-and-history 2.6952.
+The history model wins on 8 of 12 days; improvement is uneven and much comes
+from November 24. These are conditional reported-delay development results,
+not independent final-test or arrival accuracy. December 6–7 remains unscored.
+See docs/WALK_FORWARD_RESULTS.json for daily scores, coverage, and parameters.

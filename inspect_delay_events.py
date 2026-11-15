@@ -1,31 +1,39 @@
+from datetime import date
+
 import duckdb
-from train_delay_model import load_development
+
 from baseline_delay import PROJECT
+from train_delay_model import load_development
 
 archive = PROJECT / "data/raw/historical-review/2025.parquet"
 
 with duckdb.connect() as connection:
-    load_development(connection, archive)
+    load_development(
+        connection,
+        archive,
+        start=date(2025, 11, 17),
+    )
 
-    events = [
-        ("5229", "18:40:00", "19:15:00"),
-        ("5322", "09:40:00", "10:15:00"),
-    ]
+    rows = connection.execute(
+        """
+        SELECT stamp, lateness
+        FROM observations
+        WHERE service_date = DATE '2025-11-24'
+          AND train_number = ?
+          AND CAST(stamp AS TIME)
+              BETWEEN TIME '06:00:00' AND TIME '22:00:00'
+        ORDER BY stamp
+        """,
+        ["5318"],
+    ).fetchall()
 
-    for train, start, end in events:
-        rows = connection.execute(
-            """
-            SELECT stamp, lateness
-            FROM observations
-            WHERE service_date = DATE '2025-12-05'
-              AND train_number = ?
-              AND CAST(stamp AS TIME)
-                  BETWEEN CAST(? AS TIME) AND CAST(? AS TIME)
-            ORDER BY stamp
-            """,
-            [train, start, end],
-        ).fetchall()
+    print("Train 5318 — November 24, 2025")
+    print(f"Stored reports: {len(rows)}")
 
-        print(f"\nTrain {train} — stored reports:")
-        for timestamp, delay in rows:
-            print(f"{timestamp} | Reported delay: {delay}")
+    print("\nFirst 15:")
+    for timestamp, delay in rows[:15]:
+        print(f"{timestamp} | Reported delay: {delay}")
+
+    print("\nLast 15:")
+    for timestamp, delay in rows[-15:]:
+        print(f"{timestamp} | Reported delay: {delay}")

@@ -85,15 +85,17 @@ class MedianChangeModel:
                 if self.use_history else {}}
 
 
-def load_development(connection, path):
+def load_development(connection, path, start=date(2025, 12, 1)):
+    if not date(2025, 1, 1) <= start < date(2025, 12, 6):
+        raise ValueError("Development start must precede reserved test dates")
     if hashlib.sha256(path.read_bytes()).hexdigest() != EXPECTED_SHA:
         raise ValueError('Archive checksum differs from reviewed dataset')
     connection.execute('''CREATE TABLE observations AS
       SELECT service_date,train_number,CAST(service_date AS DATE)+CAST(time AS TIME) AS stamp,lateness
-      FROM read_parquet(?) WHERE service_date>=DATE '2025-12-01'
+      FROM read_parquet(?) WHERE service_date>=CAST(? AS DATE)
         AND service_date<DATE '2025-12-06'
         AND CAST(time AS TIME)>=TIME '06:00:00' AND CAST(time AS TIME)<TIME '22:00:00'
-    ''', [str(path)])
+    ''', [str(path), start])
     if connection.execute('''SELECT count(*) FROM (SELECT service_date,train_number,stamp
         FROM observations GROUP BY ALL HAVING count(*)>1)''').fetchone()[0]:
         raise ValueError('Duplicate keys require review')
@@ -138,7 +140,7 @@ def run(path):
     print("\n10 largest validation errors:")
     for error in errors[:10]:
         print(error)
-        total_error = sum(row["absolute_error"] for row in errors)
+    total_error = sum(row["absolute_error"] for row in errors)
 
     print("\nConcentration of validation error:")
     for count in (10, 50, 100):
