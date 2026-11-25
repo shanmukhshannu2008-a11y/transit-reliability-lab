@@ -373,3 +373,19 @@ Added three automated dashboard tests. All 43 project tests passed.
 The dashboard requires no raw archive or model retraining.
 It is running locally; public deployment and the train timeline remain
 outstanding.
+
+### November 25 — Historical train timelines
+
+Added three selected case studies containing 166 stored reports.
+Packaged the examples with source attribution, archive checksum,
+selection windows, and limitations.
+
+The dashboard displays numeric reports as dots without connecting
+missing intervals. Special statuses appear separately; code 999 is
+never plotted as a numeric delay. These are archived observations,
+not model predictions.
+
+Manually verified train selection and special-status display.
+Added tests for example counts, separation of special statuses,
+and dashboard selection behavior. All 46 tests passed.
+The timeline runs from its bundled examples without the raw archive.

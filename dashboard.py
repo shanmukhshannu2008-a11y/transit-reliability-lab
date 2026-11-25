@@ -225,4 +225,7 @@ def main():
 
 
 if __name__ == "__main__":
+    from timeline_panel import render_timeline
+
     main()
+    render_timeline()

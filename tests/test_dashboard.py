@@ -23,7 +23,7 @@ class DashboardTests(unittest.TestCase):
 
         self.assertEqual(app.title[0].value, "Transit Reliability Lab")
         self.assertEqual(
-            [metric.value for metric in app.metric],
+            [metric.value for metric in app.metric[:3]],
             ["12", "92,474", "2.695 min"],
         )
         self.assertEqual(len(app.dataframe[0].value), 4)
