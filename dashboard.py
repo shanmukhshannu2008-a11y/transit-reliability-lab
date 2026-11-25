@@ -89,7 +89,17 @@ def main():
 
     st.title("Transit Reliability Lab")
     st.write(
-        "How well can historical train reports predict later reported delay?"
+        "Can we predict whether a late train will fall further behind "
+        "or recover some time?"
+    )
+    st.markdown(
+        "I started this project because I ride SEPTA’s Paoli/Thorndale line. "
+        "Using historical regional-rail reports, I compare simple prediction "
+        "rules with machine-learning models to estimate how a train’s reported "
+        "delay might change roughly ten minutes later.\n\n"
+        "**Explore this dashboard** to compare model performance across days "
+        "and inspect selected train histories. These are historical experiments, "
+        "not live arrival forecasts."
     )
     st.info(
         "Historical development results • Regional rail • "
