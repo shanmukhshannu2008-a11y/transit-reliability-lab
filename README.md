@@ -1,3 +1,8 @@
+[Open the hosted dashboard](https://transit-reliability-lab-ahxkd8ck4c3wrux6owgwrd.streamlit.app/)
+
+Explore historical model comparisons and selected train-report timelines.
+This dashboard displays development results, not live arrival predictions.
+
 # Transit Reliability Lab
 
 A project investigating transit data quality and arrival reliability,

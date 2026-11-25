@@ -389,3 +389,14 @@ Manually verified train selection and special-status display.
 Added tests for example counts, separation of special statuses,
 and dashboard selection behavior. All 46 tests passed.
 The timeline runs from its bundled examples without the raw archive.
+
+
+### November 25 — Public dashboard deployment
+
+Deployed the historical dashboard to Streamlit Community Cloud.
+Verified summary metrics, model/date controls, and train 5229's
+special-status display in a private browser window.
+
+The hosted app uses committed aggregate reports and selected timeline
+examples. It requires neither the full archive nor a local server.
+It displays historical results; live prediction is not implemented.
