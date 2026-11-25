@@ -314,3 +314,47 @@ accuracy or independent final-test performance.
 Next: save the evaluation work, then compare against a simple
 recent-trend extrapolation baseline using only information available
 at prediction time.
+
+
+## November 25 — Recent-trend baseline
+
+Added a baseline that extrapolates the previous reported-delay change
+over a fixed 10-minute horizon. Uses only earlier reports from the
+same train/date, falling back to persistence for invalid or missing
+history or gaps over 30 minutes. Predictions are floored at zero.
+
+Evaluated on the same 92,474 examples across 12 development days:
+- Persistence MAE: 3.0084 minutes
+- Recent-trend MAE: 5.6724 minutes
+- Learned-history model MAE: 2.6952 minutes
+
+Recent trend beat persistence only on November 24. Extending the
+latest rate was generally unreliable in this sample. The causes
+remain unresolved, and the 8–12-minute outcome window differs from
+the baseline's fixed 10-minute forecast.
+
+All 35 tests passed. Reserved test dates remain unscored.
+Next: compare a small decision-tree regressor using the same folds.
+
+### November 25 — First scikit-learn decision tree
+
+Trained a decision-tree regressor on delay change using current delay,
+previous delay change, time between reports, and a missing-history flag.
+Fixed settings: maximum depth 4, minimum 100 examples per leaf,
+squared-error training objective, random state 42.
+
+Compared methods on identical examples across 12 walk-forward folds:
+- Persistence MAE: 3.0084 minutes
+- Recent-trend MAE: 5.6724 minutes
+- Learned median-change model MAE: 2.6952 minutes
+- Decision-tree MAE: 2.7881 minutes
+
+The tree improved on persistence by approximately 7.3%, but performed
+worse than the simpler median-change model. Increased model flexibility
+did not improve pooled development MAE in this experiment.
+
+Fixed report serialization by converting NumPy integer values to Python
+integers. All 40 tests passed; saved report checks confirmed 12 folds
+and 92,474 validation examples. Reserved test dates remain unscored.
+
+Next: visualize daily performance to communicate variability.
