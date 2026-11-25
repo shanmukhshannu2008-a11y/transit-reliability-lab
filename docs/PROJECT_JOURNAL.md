@@ -358,3 +358,18 @@ integers. All 40 tests passed; saved report checks confirmed 12 folds
 and 92,474 validation examples. Reserved test dates remain unscored.
 
 Next: visualize daily performance to communicate variability.
+
+### November 25 — Historical results dashboard
+
+Built a local Streamlit dashboard using a versioned aggregate results
+bundle. Added model comparisons, an interactive daily chart, a date
+selector, sensitivity results, and evaluation limitations.
+
+Validated report dates, example counts, and consistency between daily
+and pooled scores. Manually checked model selection, date changes,
+and the limitations section.
+
+Added three automated dashboard tests. All 43 project tests passed.
+The dashboard requires no raw archive or model retraining.
+It is running locally; public deployment and the train timeline remain
+outstanding.

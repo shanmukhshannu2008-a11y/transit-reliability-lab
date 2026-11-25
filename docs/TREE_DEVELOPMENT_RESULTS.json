@@ -1,0 +1,429 @@
+{
+  "sklearn_version": "1.9.1",
+  "features": [
+    "current_delay",
+    "previous_delay_change",
+    "previous_gap_minutes",
+    "missing_history"
+  ],
+  "tree_settings": {
+    "criterion": "squared_error",
+    "max_depth": 4,
+    "min_samples_leaf": 100,
+    "random_state": 42
+  },
+  "target": "Later reported delay minus current reported delay",
+  "scope": "Conditional observed updates 8\u201312 minutes later",
+  "validation_pairs": 92474,
+  "pooled_mae_minutes": {
+    "persistence": 3.0083591063434048,
+    "recent_trend": 5.672433861292638,
+    "learned_history": 2.695189999351169,
+    "decision_tree": 2.788083464228182
+  },
+  "folds": [
+    {
+      "date": "2025-11-24",
+      "training_pairs": 54346,
+      "validation_pairs": 11588,
+      "metrics": {
+        "persistence": {
+          "pairs": 11588,
+          "mae_minutes": 5.548584742837418,
+          "mean_error_minutes": -4.829047290300311,
+          "median_absolute_error_minutes": 8.0
+        },
+        "recent_trend": {
+          "pairs": 11588,
+          "mae_minutes": 4.023100116822475,
+          "mean_error_minutes": 2.612266577611588,
+          "median_absolute_error_minutes": 2.0840336134453707
+        },
+        "learned_history": {
+          "pairs": 11588,
+          "mae_minutes": 3.733517431826027,
+          "mean_error_minutes": -2.6998619261304797,
+          "median_absolute_error_minutes": 4.0
+        },
+        "decision_tree": {
+          "pairs": 11588,
+          "mae_minutes": 4.393251613046133,
+          "mean_error_minutes": -3.21575623632069,
+          "median_absolute_error_minutes": 4.91217008797654
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-11-25",
+      "training_pairs": 65934,
+      "validation_pairs": 11058,
+      "metrics": {
+        "persistence": {
+          "pairs": 11058,
+          "mae_minutes": 3.45324651835775,
+          "mean_error_minutes": -2.3266413456321215,
+          "median_absolute_error_minutes": 2.0
+        },
+        "recent_trend": {
+          "pairs": 11058,
+          "mae_minutes": 5.8648792036142865,
+          "mean_error_minutes": 3.0008496183716784,
+          "median_absolute_error_minutes": 4.333333333333332
+        },
+        "learned_history": {
+          "pairs": 11058,
+          "mae_minutes": 3.2045577862181225,
+          "mean_error_minutes": 0.22734671730873576,
+          "median_absolute_error_minutes": 2.0
+        },
+        "decision_tree": {
+          "pairs": 11058,
+          "mae_minutes": 2.96041256864687,
+          "mean_error_minutes": -0.41338907964997745,
+          "median_absolute_error_minutes": 2.0589473684210517
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-11-26",
+      "training_pairs": 76992,
+      "validation_pairs": 7933,
+      "metrics": {
+        "persistence": {
+          "pairs": 7933,
+          "mae_minutes": 2.284381696709946,
+          "mean_error_minutes": -0.5707802848859196,
+          "median_absolute_error_minutes": 1.0
+        },
+        "recent_trend": {
+          "pairs": 7933,
+          "mae_minutes": 6.01454237181967,
+          "mean_error_minutes": 3.7228659614085986,
+          "median_absolute_error_minutes": 5.0
+        },
+        "learned_history": {
+          "pairs": 7933,
+          "mae_minutes": 2.402369847472583,
+          "mean_error_minutes": 0.3970755073742594,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 7933,
+          "mae_minutes": 2.4031083760222613,
+          "mean_error_minutes": 0.7038613372394937,
+          "median_absolute_error_minutes": 1.8940641863107073
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-11-27",
+      "training_pairs": 84925,
+      "validation_pairs": 3996,
+      "metrics": {
+        "persistence": {
+          "pairs": 3996,
+          "mae_minutes": 2.3613613613613613,
+          "mean_error_minutes": -0.2962962962962963,
+          "median_absolute_error_minutes": 1.0
+        },
+        "recent_trend": {
+          "pairs": 3996,
+          "mae_minutes": 5.827296665335741,
+          "mean_error_minutes": 4.055139059329942,
+          "median_absolute_error_minutes": 4.0
+        },
+        "learned_history": {
+          "pairs": 3996,
+          "mae_minutes": 2.3465965965965965,
+          "mean_error_minutes": 0.5568068068068068,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 3996,
+          "mae_minutes": 2.5212182879251843,
+          "mean_error_minutes": 0.9531659786172667,
+          "median_absolute_error_minutes": 1.6583846001190707
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-11-28",
+      "training_pairs": 88921,
+      "validation_pairs": 7038,
+      "metrics": {
+        "persistence": {
+          "pairs": 7038,
+          "mae_minutes": 2.322961068485365,
+          "mean_error_minutes": -0.5355214549587951,
+          "median_absolute_error_minutes": 1.0
+        },
+        "recent_trend": {
+          "pairs": 7038,
+          "mae_minutes": 5.656674060647377,
+          "mean_error_minutes": 3.781853611596061,
+          "median_absolute_error_minutes": 4.0
+        },
+        "learned_history": {
+          "pairs": 7038,
+          "mae_minutes": 2.2327365728900257,
+          "mean_error_minutes": 0.34782608695652173,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 7038,
+          "mae_minutes": 2.373163696202612,
+          "mean_error_minutes": 0.6578335342739661,
+          "median_absolute_error_minutes": 1.6197809851797391
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-11-29",
+      "training_pairs": 95959,
+      "validation_pairs": 3991,
+      "metrics": {
+        "persistence": {
+          "pairs": 3991,
+          "mae_minutes": 1.6539714357303934,
+          "mean_error_minutes": -0.4537709847156101,
+          "median_absolute_error_minutes": 1.0
+        },
+        "recent_trend": {
+          "pairs": 3991,
+          "mae_minutes": 5.411474129940514,
+          "mean_error_minutes": 3.7496190399721687,
+          "median_absolute_error_minutes": 4.0
+        },
+        "learned_history": {
+          "pairs": 3991,
+          "mae_minutes": 1.6156351791530945,
+          "mean_error_minutes": 0.18541718867451767,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 3991,
+          "mae_minutes": 1.7970808007536092,
+          "mean_error_minutes": 0.6111094399415445,
+          "median_absolute_error_minutes": 1.4122859664607237
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-11-30",
+      "training_pairs": 99950,
+      "validation_pairs": 4378,
+      "metrics": {
+        "persistence": {
+          "pairs": 4378,
+          "mae_minutes": 3.128140703517588,
+          "mean_error_minutes": -1.5872544540886249,
+          "median_absolute_error_minutes": 2.0
+        },
+        "recent_trend": {
+          "pairs": 4378,
+          "mae_minutes": 5.355666982678537,
+          "mean_error_minutes": 3.485301303526069,
+          "median_absolute_error_minutes": 3.3333333333333326
+        },
+        "learned_history": {
+          "pairs": 4378,
+          "mae_minutes": 2.533120146185473,
+          "mean_error_minutes": -0.18090452261306533,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 4378,
+          "mae_minutes": 2.8362932986784815,
+          "mean_error_minutes": -0.19602503998356255,
+          "median_absolute_error_minutes": 1.9967047647320764
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-12-01",
+      "training_pairs": 104328,
+      "validation_pairs": 7420,
+      "metrics": {
+        "persistence": {
+          "pairs": 7420,
+          "mae_minutes": 2.313881401617251,
+          "mean_error_minutes": -0.5252021563342318,
+          "median_absolute_error_minutes": 1.0
+        },
+        "recent_trend": {
+          "pairs": 7420,
+          "mae_minutes": 5.797384500065554,
+          "mean_error_minutes": 3.805180882282938,
+          "median_absolute_error_minutes": 4.0
+        },
+        "learned_history": {
+          "pairs": 7420,
+          "mae_minutes": 2.3351752021563343,
+          "mean_error_minutes": 0.3095687331536388,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 7420,
+          "mae_minutes": 2.379488704798886,
+          "mean_error_minutes": 0.599000048559742,
+          "median_absolute_error_minutes": 1.5642231383664003
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-12-02",
+      "training_pairs": 111748,
+      "validation_pairs": 9389,
+      "metrics": {
+        "persistence": {
+          "pairs": 9389,
+          "mae_minutes": 2.858877409734796,
+          "mean_error_minutes": -1.1660453722441155,
+          "median_absolute_error_minutes": 2.0
+        },
+        "recent_trend": {
+          "pairs": 9389,
+          "mae_minutes": 6.237962246652272,
+          "mean_error_minutes": 3.7094166443198344,
+          "median_absolute_error_minutes": 5.0
+        },
+        "learned_history": {
+          "pairs": 9389,
+          "mae_minutes": 2.725316860155501,
+          "mean_error_minutes": 0.19916924060070296,
+          "median_absolute_error_minutes": 2.0
+        },
+        "decision_tree": {
+          "pairs": 9389,
+          "mae_minutes": 2.701419927180052,
+          "mean_error_minutes": 0.1360255767133859,
+          "median_absolute_error_minutes": 1.995157130073169
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-12-03",
+      "training_pairs": 121137,
+      "validation_pairs": 8255,
+      "metrics": {
+        "persistence": {
+          "pairs": 8255,
+          "mae_minutes": 2.377952755905512,
+          "mean_error_minutes": -0.7374924288310115,
+          "median_absolute_error_minutes": 2.0
+        },
+        "recent_trend": {
+          "pairs": 8255,
+          "mae_minutes": 6.098501103218187,
+          "mean_error_minutes": 3.737296311112302,
+          "median_absolute_error_minutes": 5.0
+        },
+        "learned_history": {
+          "pairs": 8255,
+          "mae_minutes": 2.4132646880678377,
+          "mean_error_minutes": 0.19775893397940641,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 8255,
+          "mae_minutes": 2.3769521839704555,
+          "mean_error_minutes": 0.39737999356657133,
+          "median_absolute_error_minutes": 1.5720243124642264
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-12-04",
+      "training_pairs": 129392,
+      "validation_pairs": 9190,
+      "metrics": {
+        "persistence": {
+          "pairs": 9190,
+          "mae_minutes": 2.983786724700762,
+          "mean_error_minutes": -1.303917301414581,
+          "median_absolute_error_minutes": 2.0
+        },
+        "recent_trend": {
+          "pairs": 9190,
+          "mae_minutes": 5.973355969319854,
+          "mean_error_minutes": 3.7385498338946337,
+          "median_absolute_error_minutes": 4.666666666666666
+        },
+        "learned_history": {
+          "pairs": 9190,
+          "mae_minutes": 2.728563656147987,
+          "mean_error_minutes": 0.027257889009793253,
+          "median_absolute_error_minutes": 2.0
+        },
+        "decision_tree": {
+          "pairs": 9190,
+          "mae_minutes": 2.7805330968232838,
+          "mean_error_minutes": -0.03753636531280163,
+          "median_absolute_error_minutes": 1.9791110242546628
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    },
+    {
+      "date": "2025-12-05",
+      "training_pairs": 138582,
+      "validation_pairs": 8238,
+      "metrics": {
+        "persistence": {
+          "pairs": 8238,
+          "mae_minutes": 2.482034474386987,
+          "mean_error_minutes": -0.7833211944646759,
+          "median_absolute_error_minutes": 2.0
+        },
+        "recent_trend": {
+          "pairs": 8238,
+          "mae_minutes": 6.118089895669707,
+          "mean_error_minutes": 3.760847423830126,
+          "median_absolute_error_minutes": 5.0
+        },
+        "learned_history": {
+          "pairs": 8238,
+          "mae_minutes": 2.5413935421218743,
+          "mean_error_minutes": 0.1908230152949745,
+          "median_absolute_error_minutes": 1.0
+        },
+        "decision_tree": {
+          "pairs": 8238,
+          "mae_minutes": 2.495180433812601,
+          "mean_error_minutes": 0.34538180451020145,
+          "median_absolute_error_minutes": 1.592520259501201
+        }
+      },
+      "tree_depth": 4,
+      "tree_leaves": 15
+    }
+  ],
+  "limitations": [
+    "Development comparison, not independent final testing.",
+    "Tree uses squared-error training; evaluation uses MAE.",
+    "Pairs overlap and missing unchanged reports bias sampling.",
+    "Reported-delay prediction, not verified arrival accuracy.",
+    "December 6\u20137 remains excluded."
+  ]
+}
