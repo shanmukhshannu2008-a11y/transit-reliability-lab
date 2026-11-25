@@ -123,3 +123,25 @@ The history model wins on 8 of 12 days; improvement is uneven and much comes
 from November 24. These are conditional reported-delay development results,
 not independent final-test or arrival accuracy. December 6–7 remains unscored.
 See docs/WALK_FORWARD_RESULTS.json for daily scores, coverage, and parameters.
+
+
+## Model comparison
+
+![Daily model prediction errors](docs/figures/model_comparison.png)
+
+Compared four methods on 92,474 eligible examples across 12
+walk-forward development days. Lower error is better.
+
+| Method | Pooled MAE (minutes) |
+|---|---:|
+| Median-change model | 2.6952 |
+| Decision tree | 2.7881 |
+| Persistence | 3.0084 |
+| Recent trend | 5.6724 |
+
+The simpler median-change model performed best overall.
+Its improvement over persistence was 10.41%; excluding November 24
+from scoring reduced that improvement to 3.71%.
+
+These results concern reported delay at observed updates 8–12 minutes
+later, not verified station arrivals. Reserved test dates remain unscored.
