@@ -400,3 +400,20 @@ special-status display in a private browser window.
 The hosted app uses committed aggregate reports and selected timeline
 examples. It requires neither the full archive nor a local server.
 It displays historical results; live prediction is not implemented.
+
+### November 25 — Saved model and standalone predictions
+
+Trained the median-change model on 34,254 examples from December 1–4,
+2025, and saved its parameters, feature policy, and training metadata.
+
+Reloaded the model and verified identical predictions on all 8,238
+December 5 validation examples. Added a command-line predictor for
+manually supplied current and previous reports.
+
+Added five tests covering history categories, invalid inputs,
+missing/stale history, and saving/loading with known predictions.
+All 51 tests passed. Reserved test dates remain unscored.
+
+Prediction does not retrain or read the archive, but currently imports
+training modules. Next: separate the runtime from training dependencies,
+then add an explicitly labeled manual prediction demo to the dashboard.
