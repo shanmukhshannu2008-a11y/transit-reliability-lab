@@ -456,3 +456,44 @@ not the accuracy or freshness of SEPTA's underlying observations.
 Live reports are displayed only; the historically trained model is not
 yet applied to them because sampling and feature compatibility remain
 unresolved.
+
+
+## November 26 — Live sampling and outcome-availability audit
+
+Collected 31 successful snapshots over approximately 30 minutes.
+Observed 76 Paoli/Thorndale reports across three train numbers.
+
+Change-only sampling retained 30 reports and omitted 46 repeats.
+History categories agreed on all 30 retained numeric anchors.
+
+With a conservative full-12-minute follow-up requirement:
+- Every-snapshot sampling: 40 available numeric outcomes,
+  25 anchors near collection end, and 11 interrupted follow-ups.
+- Change-only sampling: 14 available numeric outcomes,
+  11 anchors near collection end, 4 interrupted follow-ups,
+  and 1 anchor without an update in the 8–12-minute window.
+
+The methods have different anchor sets and may select different
+outcome reports. Counts measure availability, not model accuracy.
+No live model predictions enabled.
+
+Next: compare matched outcome times and values on common anchors.
+
+### Same-anchor outcome comparison
+
+Among 30 retained numeric anchors, 14 had eligible numeric outcomes
+under both sampling methods. Five matched outcomes differed in both
+timestamp and delay value. All five involved train 9543, with a
+one-minute difference in reported delay.
+
+Eleven anchors lacked sufficient follow-up, four had interrupted
+follow-up, and one had a full-feed outcome but no change-only outcome.
+
+Conclusion: sampling can alter the target label even at identical
+anchors. Historical evaluation scores cannot be assumed to transfer
+to live snapshot predictions. This small, overlapping sample does not
+establish the prevalence of the mismatch.
+
+All 69 tests passed, including seven new checks covering outcome
+selection, unchanged reports, incomplete follow-up, disappearance,
+special statuses, and the inclusive 12-minute boundary.
