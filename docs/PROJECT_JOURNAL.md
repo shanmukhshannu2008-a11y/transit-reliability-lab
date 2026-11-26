@@ -538,3 +538,23 @@ duplicate timestamps, and timezone requirements.
 
 A date may contain multiple collection sessions. Rerunning the same date
 updates that date's report; different dates remain separate.
+
+
+### November 26 — Second collection run and window comparison
+
+Collected another 31 snapshots successfully. A gap of approximately
+4 minutes 28 seconds split the second run into two continuous windows.
+
+Across 62 snapshots, 58 examples were eligible:
+- First window: 40 examples; persistence MAE 2.075, model MAE 2.300.
+- Short window: no eligible examples.
+- Third window: 18 examples; persistence MAE 1.056, model MAE 1.278.
+
+Combined MAE: persistence 1.7586, saved model 1.9828.
+Splitting by gaps over 180 seconds preserved the full-day eligible
+examples exactly. Exclusion categories can change when evaluated
+per window rather than across an entire date.
+
+Persistence outperformed the historical model in both usable windows.
+This remains a small, overlapping sample from one afternoon.
+Automatic live model predictions remain disabled.
