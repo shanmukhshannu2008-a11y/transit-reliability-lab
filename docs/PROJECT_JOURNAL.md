@@ -497,3 +497,27 @@ establish the prevalence of the mismatch.
 All 69 tests passed, including seven new checks covering outcome
 selection, unchanged reports, incomplete follow-up, disappearance,
 special statuses, and the inclusive 12-minute boundary.
+
+
+### November 26 — First offline evaluation on collected live reports
+
+Evaluated the saved December 1–4 model on 40 eligible examples from
+the November 26 collection session. Target: first collected report
+at/after 10 minutes, accepted through 12 minutes, with uninterrupted
+follow-up required.
+
+Persistence MAE: 2.075 minutes.
+Saved-model MAE: 2.300 minutes, approximately 10.8% worse.
+
+For train 9550, the model predicted one minute late at all 19 eligible
+zero-delay anchors. This hurt 15 examples whose outcomes remained zero
+and helped four whose outcomes increased: 11 additional minutes of
+summed absolute error.
+
+The pattern is consistent with sampling differences but does not prove
+their causal contribution. Results are from one short session with
+overlapping examples and are not independent final-test performance.
+
+Decision: keep automatic predictions for live trains disabled.
+Preserve the historical model and collect broader full-snapshot data
+before developing or selecting a live prediction model.
