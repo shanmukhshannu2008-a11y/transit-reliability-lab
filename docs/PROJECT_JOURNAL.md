@@ -448,7 +448,10 @@ server processes. Dashboard snapshots are not persisted to the archive.
 
 All 62 tests passed. New tests cover feed validation, status handling,
 cache reuse, cached failures, copy isolation, and recovery after clearing
-the cache. Public live-feed verification remains pending.
+the cache. Public live-feed verification passed: the hosted app displayed a snapshot
+collected November 25 at 8:11:17 p.m. EST, with 27 total reports and one
+Paoli/Thorndale match. This confirms hosted connectivity and display,
+not the accuracy or freshness of SEPTA's underlying observations.
 
 Live reports are displayed only; the historically trained model is not
 yet applied to them because sampling and feature compatibility remain
