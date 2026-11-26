@@ -238,8 +238,10 @@ if __name__ == "__main__":
     from timeline_panel import render_timeline
     from prediction_panel import render_prediction
     from live_panel import render_live
+    from live_evaluation_panel import render_live_evaluation
 
     main()
     render_timeline()
     render_prediction()
+    render_live_evaluation()
     render_live()

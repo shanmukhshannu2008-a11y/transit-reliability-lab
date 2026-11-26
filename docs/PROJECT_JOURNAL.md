@@ -558,3 +558,18 @@ per window rather than across an entire date.
 Persistence outperformed the historical model in both usable windows.
 This remains a small, overlapping sample from one afternoon.
 Automatic live model predictions remain disabled.
+
+
+### November 26 — Live transfer results in the dashboard
+
+Added a dated aggregate results bundle and dashboard section comparing
+persistence with the historical model on recorded live-feed snapshots.
+
+The November 26 report contains 58 eligible examples:
+persistence MAE 1.7586 minutes; historical-model MAE 1.9828 minutes.
+Displayed per-train results, exclusions, target definitions, and limits.
+Automatic predictions for live trains remain disabled.
+
+Verified the panel locally. All 82 tests passed, including checks of
+the reviewed summary and its dashboard display.
+Public deployment verification pending.

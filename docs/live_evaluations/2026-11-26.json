@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "collection_date": "2026-11-26",
+  "collection_timezone": "America/New_York",
+  "snapshot_count": 62,
+  "first_collection_utc": "2026-11-26T19:42:02.411963+00:00",
+  "last_collection_utc": "2026-11-26T21:26:49.298005+00:00",
+  "model_sha256": "d9e1ad75bd66eee32b7c558f37c4af89adbc587c4e9fe0c961dfa0de21746d1a",
+  "training_start": "2025-12-01",
+  "training_end_exclusive": "2025-12-05",
+  "history_rule": "Immediately previous collected snapshot; reset after absence or gap over 180 seconds; invalid previous values treated as missing.",
+  "target_rule": "First collected report at/after 10 minutes, accepted through 12; requires uninterrupted full-window follow-up.",
+  "overall": {
+    "examples": 58,
+    "persistence_mae": 1.7586206896551724,
+    "model_mae": 1.9827586206896552
+  },
+  "by_train": {
+    "5854": {
+      "examples": 4,
+      "persistence_mae": 0.75,
+      "model_mae": 0.75
+    },
+    "8539": {
+      "examples": 8,
+      "persistence_mae": 0.5,
+      "model_mae": 0.5
+    },
+    "8547": {
+      "examples": 14,
+      "persistence_mae": 1.1428571428571428,
+      "model_mae": 1.4285714285714286
+    },
+    "9543": {
+      "examples": 13,
+      "persistence_mae": 5.3076923076923075,
+      "model_mae": 5.153846153846154
+    },
+    "9550": {
+      "examples": 19,
+      "persistence_mae": 0.5263157894736842,
+      "model_mae": 1.105263157894737
+    }
+  },
+  "exclusions": {
+    "interrupted_followup": 59,
+    "collection_ended_before_12_minutes": 20
+  },
+  "limitations": [
+    "All snapshots from one local date; may contain multiple sessions.",
+    "Overlapping examples are not independent journeys.",
+    "Historical training and live sampling differ.",
+    "Collection time is not verified source-observation time.",
+    "No retraining or historical test-set evaluation."
+  ],
+  "deployment_decision": "Automatic model predictions for live trains remain disabled."
+}
