@@ -3,8 +3,7 @@
 import argparse
 import math
 
-from save_model import MODEL_PATH, load_model
-from train_delay_model import delay_bin
+from prediction_runtime import MODEL_PATH, load_model, delay_bin
 
 
 def prepare_features(current, previous=None, gap_minutes=None):

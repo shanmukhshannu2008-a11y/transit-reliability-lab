@@ -417,3 +417,18 @@ All 51 tests passed. Reserved test dates remain unscored.
 Prediction does not retrain or read the archive, but currently imports
 training modules. Next: separate the runtime from training dependencies,
 then add an explicitly labeled manual prediction demo to the dashboard.
+
+
+### November 25 — Lightweight prediction runtime and dashboard demo
+
+Separated saved-model inference from training-library imports.
+Confirmed command-line prediction works with site-packages disabled.
+Verified identical predictions against the original saved-model loader
+on all 8,238 December 5 validation examples, without retraining.
+
+Added a manual prediction form to the dashboard with numeric-history
+and missing-history paths. Added automated form tests and ran the suite
+successfully. The form uses the December 1–4 model and does not fetch
+live reports. Reserved test dates remain unscored.
+
+Local interaction checks passed. Public deployment verification pending.

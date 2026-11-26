@@ -236,6 +236,8 @@ def main():
 
 if __name__ == "__main__":
     from timeline_panel import render_timeline
+    from prediction_panel import render_prediction
 
     main()
     render_timeline()
+    render_prediction()
