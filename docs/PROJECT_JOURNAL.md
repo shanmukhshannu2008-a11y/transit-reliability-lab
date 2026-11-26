@@ -521,3 +521,20 @@ overlapping examples and are not independent final-test performance.
 Decision: keep automatic predictions for live trains disabled.
 Preserve the historical model and collect broader full-snapshot data
 before developing or selecting a live prediction model.
+
+### November 26 — Date-selectable live evaluation
+
+Added a reusable snapshot loader using America/New_York collection dates.
+Updated evaluation and error inspection to accept --date; inspection
+also accepts --train. Reports are saved separately by collection date.
+
+Reproduced November 26 results: 40 eligible examples, persistence MAE
+2.075 minutes, saved-model MAE 2.300 minutes. Train 9550's additional
+summed error remained +11 minutes across 19 examples.
+
+All 80 tests passed, including five new loader tests covering local-date
+selection, empty snapshots, chronological ordering, duplicate identifiers,
+duplicate timestamps, and timezone requirements.
+
+A date may contain multiple collection sessions. Rerunning the same date
+updates that date's report; different dates remain separate.
