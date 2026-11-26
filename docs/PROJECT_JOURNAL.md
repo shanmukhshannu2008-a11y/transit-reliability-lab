@@ -432,3 +432,24 @@ successfully. The form uses the December 1–4 model and does not fetch
 live reports. Reserved test dates remain unscored.
 
 Local interaction checks passed. Public deployment verification pending.
+
+### November 25 — Live observations panel and shared caching
+
+Added on-demand SEPTA TrainView reports for Paoli/Thorndale.
+Displayed collection timestamps separately from unknown feed-observation
+freshness. Special and unknown values are not treated as numeric delays.
+
+Manually verified session cooldown, preservation of the last successful
+snapshot during network failure, and recovery after connectivity returned.
+
+Added a 60-second shared cache for successful responses and failures
+within the running app. This is not a rate limiter across multiple
+server processes. Dashboard snapshots are not persisted to the archive.
+
+All 62 tests passed. New tests cover feed validation, status handling,
+cache reuse, cached failures, copy isolation, and recovery after clearing
+the cache. Public live-feed verification remains pending.
+
+Live reports are displayed only; the historically trained model is not
+yet applied to them because sampling and feature compatibility remain
+unresolved.
